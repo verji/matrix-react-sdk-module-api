@@ -1,6 +1,9 @@
 {
     "name": "@verji/react-sdk-module-api",
-    "version": "2.4.0",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "version": "2.4.0-taj1",
     "description": "Module API surface for matrix-react-sdk",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
