@@ -15,8 +15,10 @@ limitations under the License.
 
 import { ProvideCryptoSetupExtensions } from "../lifecycles/CryptoSetupExtensions";
 import { ProvideExperimentalExtensions } from "../lifecycles/ExperimentalExtensions";
+import { ProvideUserSearchExtensions } from "../lifecycles/UserSearchExtensions";
 
 export type AllExtensions = {
     cryptoSetup?: ProvideCryptoSetupExtensions;
     experimental?: ProvideExperimentalExtensions;
+    userSearch?: ProvideUserSearchExtensions
 };
