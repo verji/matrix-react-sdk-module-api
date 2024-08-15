@@ -13,12 +13,43 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import { Optional } from "matrix-events-sdk";
+
+interface RoomViewStoreProjection {
+    // The room ID of the room currently being viewed
+    getRoomId(): Optional<string>;
+}
+interface RoomProjection {
+    // The room ID of the room currently being viewed
+    roomId: string;
+}
+
+interface SpaceStoreClassProjection {
+//    get matrixClient(): MatrixClient | null;
+    get activeSpaceRoom(): RoomProjection | null;
+}
+
+
+export interface SdkContextClass {
+
+    // Optional as we don't have a client on initial load if unregistered. This should be set
+    // when the MatrixClient is first acquired in the dispatcher event Action.OnLoggedIn.
+    // It is only safe to set this once, as updating this value will NOT notify components using
+    // this Context.
+
+    get roomViewStore(): RoomViewStoreProjection;
+    get spaceStore(): SpaceStoreClassProjection; 
+}
+
+
 export interface ProvideUserSearchExtensions {
-    extendRequestPayload(): void;
+    // augmentSearchRequestBody(body: {[key:string]: string}|null): {[key:string]: string}|null
+    resolveSearchContext(client:any,  sdkContext: SdkContextClass): Promise<{[key:string]: string}|null>
 }
 
 export abstract class UserSearchExtensionsBase implements ProvideUserSearchExtensions {
-    public abstract extendRequestPayload(): void;
+    // public abstract augmentSearchRequestBody(body: {[key:string]: string}|null): {[key:string]: string}|null
+    public abstract resolveSearchContext(client:any, sdkContextClass: SdkContextClass): Promise<{[key:string]: string}|null>    
 }
 
 /**
@@ -28,7 +59,14 @@ export abstract class UserSearchExtensionsBase implements ProvideUserSearchExten
  *
  * */
 export class DefaultUserSearchExtensions extends UserSearchExtensionsBase {
-    public extendRequestPayload(): void {
-        console.log("Default empty examineLoginResponse() => void");
+
+    // public augmentSearchRequestBody(body: {[key:string]: string}|null):{[key:string]: string}|null {
+    //     console.log("Default no-op augmentSearchRequestBody()", body);
+    //     return body;
+    // }
+
+    public async resolveSearchContext(client:any, sdkContext: SdkContextClass): Promise<{[key:string]: string}|null> {
+        console.log("Default resolveSearchContext() => {}");
+        return {}
     }
 }
