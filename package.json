@@ -1,6 +1,6 @@
 {
     "name": "@matrix-org/react-sdk-module-api",
-    "version": "2.4.0",
+    "version": "2.4.0-vrj1",
     "description": "Module API surface for matrix-react-sdk",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -27,6 +27,10 @@
         "lint:types": "tsc --noEmit",
         "lint:workflows": "find .github/workflows -type f \\( -iname '*.yaml' -o -iname '*.yml' \\) | xargs -I {} sh -c 'echo \"Linting {}\"; action-validator \"{}\"'",
         "prepublishOnly": "yarn build"
+    },
+    "resolutions": {
+        "@types/react-dom": "17.0.25",
+        "@types/react": "17.0.80"
     },
     "devDependencies": {
         "@action-validator/cli": "^0.5.3",
@@ -63,7 +67,8 @@
         "typescript": "^4.6.3"
     },
     "dependencies": {
-        "@babel/runtime": "^7.17.9"
+        "@babel/runtime": "^7.17.9",
+        "matrix-events-sdk": "^2.0.0"
     },
     "peerDependencies": {
         "react": "^17.0.2"

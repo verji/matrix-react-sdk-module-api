@@ -19,6 +19,8 @@ interface RoomViewStoreProjection {
     // The room ID of the room currently being viewed
     getRoomId(): Optional<string>;
 }
+
+
 interface RoomProjection {
     // The room ID of the room currently being viewed
     roomId: string;
@@ -27,6 +29,52 @@ interface RoomProjection {
 interface SpaceStoreClassProjection {
 //    get matrixClient(): MatrixClient | null;
     get activeSpaceRoom(): RoomProjection | null;
+}
+
+interface RequestInit {
+    /**
+     * Specifies the priority of the fetch request relative to other requests of the same type.
+     * Must be one of the following strings:
+     *   high: A high priority fetch request relative to other requests of the same type.
+     *   low: A low priority fetch request relative to other requests of the same type.
+     *   auto: Automatically determine the priority of the fetch request relative to other requests of the same type (default).
+     *
+     * @see https://html.spec.whatwg.org/multipage/urls-and-fetching.html#fetch-priority-attribute
+     * @see https://github.com/microsoft/TypeScript/issues/54472
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#browser_compatibility
+     * Not yet supported in Safari or Firefox
+     */
+    priority?: "high" | "low" | "auto";
+}
+
+interface RequestOptsProjection extends Pick<RequestInit, "priority"> {
+    /**
+     * The alternative base url to use.
+     * If not specified, uses this.opts.baseUrl
+     */
+    baseUrl?: string;
+    /**
+     * The full prefix to use e.g.
+     * "/_matrix/client/v2_alpha". If not specified, uses this.opts.prefix.
+     */
+    prefix?: string;
+    /**
+     * map of additional request headers
+     */
+    headers?: Record<string, string>;
+    abortSignal?: AbortSignal;
+    /**
+     * The maximum amount of time to wait before
+     * timing out the request. If not specified, there is no timeout.
+     */
+    localTimeoutMs?: number;
+    keepAlive?: boolean; // defaults to false
+    json?: boolean; // defaults to true
+
+    // Set to true to prevent the request function from emitting a Session.logged_out event.
+    // This is intended for use on endpoints where M_UNKNOWN_TOKEN is a valid/notable error response,
+    // such as with token refreshes.
+    inhibitLogoutEmit?: boolean;
 }
 
 
@@ -43,13 +91,18 @@ export interface SdkContextClass {
 
 
 export interface ProvideUserSearchExtensions {
-    // augmentSearchRequestBody(body: {[key:string]: string}|null): {[key:string]: string}|null
-    resolveSearchContext(client:any,  sdkContext: SdkContextClass): Promise<{[key:string]: string}|null>
+    getSearchContext(client:any,  sdkContext: SdkContextClass): Promise<SearchContext>
 }
 
+
+export interface SearchContext {
+    extraBodyArgs: {[key:string]: string}|null; 
+    extraRequestOptions: RequestOptsProjection;
+}
+
+
 export abstract class UserSearchExtensionsBase implements ProvideUserSearchExtensions {
-    // public abstract augmentSearchRequestBody(body: {[key:string]: string}|null): {[key:string]: string}|null
-    public abstract resolveSearchContext(client:any, sdkContextClass: SdkContextClass): Promise<{[key:string]: string}|null>    
+    public abstract getSearchContext(client:any, sdkContextClass: SdkContextClass): Promise<SearchContext>    
 }
 
 /**
@@ -60,13 +113,11 @@ export abstract class UserSearchExtensionsBase implements ProvideUserSearchExten
  * */
 export class DefaultUserSearchExtensions extends UserSearchExtensionsBase {
 
-    // public augmentSearchRequestBody(body: {[key:string]: string}|null):{[key:string]: string}|null {
-    //     console.log("Default no-op augmentSearchRequestBody()", body);
-    //     return body;
-    // }
-
-    public async resolveSearchContext(client:any, sdkContext: SdkContextClass): Promise<{[key:string]: string}|null> {
+    public async getSearchContext(client:any, sdkContext: SdkContextClass): Promise<SearchContext> {
         console.log("Default resolveSearchContext() => {}");
-        return {}
+        return {
+            extraBodyArgs: {},
+            extraRequestOptions: {}
+        }
     }
 }
