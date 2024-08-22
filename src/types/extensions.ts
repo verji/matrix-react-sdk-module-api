@@ -13,9 +13,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { ProvideCryptoSetupExtensions } from "../lifecycles/CryptoSetupExtensions";
-import { ProvideExperimentalExtensions } from "../lifecycles/ExperimentalExtensions";
-import { ProvideUserSearchExtensions } from "../lifecycles/UserSearchExtensions";
+import { ProvideCryptoSetupExtensions } from "../extensions/CryptoSetupExtensions";
+import { ProvideExperimentalExtensions } from "../extensions/ExperimentalExtensions";
+import { ProvideUserSearchExtensions } from "../extensions/UserSearchExtensions";
 
 export type AllExtensions = {
     cryptoSetup?: ProvideCryptoSetupExtensions;

@@ -15,18 +15,18 @@ limitations under the License.
 
 import { Optional } from "matrix-events-sdk";
 
-interface RoomViewStoreProjection {
+export interface RoomViewStoreProjection {
     // The room ID of the room currently being viewed
     getRoomId(): Optional<string>;
 }
 
 
-interface RoomProjection {
+export interface RoomProjection {
     // The room ID of the room currently being viewed
     roomId: string;
 }
 
-interface SpaceStoreClassProjection {
+export interface SpaceStoreClassProjection {
 //    get matrixClient(): MatrixClient | null;
     get activeSpaceRoom(): RoomProjection | null;
 }
@@ -78,12 +78,10 @@ interface RequestOptsProjection extends Pick<RequestInit, "priority"> {
 }
 
 
-export interface SdkContextClass {
-
-    // Optional as we don't have a client on initial load if unregistered. This should be set
-    // when the MatrixClient is first acquired in the dispatcher event Action.OnLoggedIn.
-    // It is only safe to set this once, as updating this value will NOT notify components using
-    // this Context.
+/*
+* A interface providing a slice/projection of the SdkContextClass in matrix-react-sdk
+*/
+export interface SdkContextClassProjection {
 
     get roomViewStore(): RoomViewStoreProjection;
     get spaceStore(): SpaceStoreClassProjection; 
@@ -91,7 +89,7 @@ export interface SdkContextClass {
 
 
 export interface ProvideUserSearchExtensions {
-    getSearchContext(client:any,  sdkContext: SdkContextClass): Promise<SearchContext>
+    getSearchContext(client:any,  sdkContext: SdkContextClassProjection): Promise<SearchContext>
 }
 
 
@@ -102,7 +100,7 @@ export interface SearchContext {
 
 
 export abstract class UserSearchExtensionsBase implements ProvideUserSearchExtensions {
-    public abstract getSearchContext(client:any, sdkContextClass: SdkContextClass): Promise<SearchContext>    
+    public abstract getSearchContext(client:any, sdkContextClass: SdkContextClassProjection): Promise<SearchContext>    
 }
 
 /**
@@ -113,8 +111,8 @@ export abstract class UserSearchExtensionsBase implements ProvideUserSearchExten
  * */
 export class DefaultUserSearchExtensions extends UserSearchExtensionsBase {
 
-    public async getSearchContext(client:any, sdkContext: SdkContextClass): Promise<SearchContext> {
-        console.log("Default resolveSearchContext() => {}");
+    public async getSearchContext(client:any, sdkContext: SdkContextClassProjection): Promise<SearchContext> {
+        console.log("Default resolveSearchContext()");
         return {
             extraBodyArgs: {},
             extraRequestOptions: {}
