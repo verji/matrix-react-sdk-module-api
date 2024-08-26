@@ -88,20 +88,30 @@ export interface SdkContextClassProjection {
 }
 
 
+/**
+ * Public api surface used to consume the extension in client code
+ */
 export interface ProvideUserSearchExtensions {
     getSearchContext(client:any,  sdkContext: SdkContextClassProjection): Promise<SearchContext>
 }
 
+/**
+ * Abstract base class which concrete extension implementations will extend/derive from
+ */
+export abstract class UserSearchExtensionsBase implements ProvideUserSearchExtensions {
+    public abstract getSearchContext(client:any, sdkContextClass: SdkContextClassProjection): Promise<SearchContext>    
+}
 
+
+/**
+ * Search context used to augment call to /user-directory/search
+ * 
+ */
 export interface SearchContext {
     extraBodyArgs: {[key:string]: string}|null; 
     extraRequestOptions: RequestOptsProjection;
 }
 
-
-export abstract class UserSearchExtensionsBase implements ProvideUserSearchExtensions {
-    public abstract getSearchContext(client:any, sdkContextClass: SdkContextClassProjection): Promise<SearchContext>    
-}
 
 /**
  *
