@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import { RuntimeModule } from "../../src";
+
 import {
     ExtendedMatrixClientCreds,
     CryptoSetupExtensionsBase,
@@ -22,8 +23,9 @@ import {
     CryptoSetupArgs,
     ProvideCryptoSetupExtensions,
     DefaultCryptoSetupExtensions,
-} from "../../src/lifecycles/CryptoSetupExtensions";
-import { DefaultExperimentalExtensions, ExperimentalExtensionsBase } from "../../src/lifecycles/ExperimentalExtensions";
+} from "../../src/extensions/CryptoSetupExtensions";
+
+import { DefaultExperimentalExtensions, ExperimentalExtensionsBase } from "../../src/extensions/ExperimentalExtensions";
 
 describe("Defaults", () => {
     let module: RuntimeModule;
