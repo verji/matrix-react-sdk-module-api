@@ -14,18 +14,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import { Optional } from "matrix-events-sdk";
+
 import { RuntimeModule } from "../../src";
 
 import {
     UserSearchExtensionsBase,
-    ProvideUserSearchExtensions,
     DefaultUserSearchExtensions,
     SdkContextClassProjection,
     RoomViewStoreProjection,
+    RoomProjection,
     SpaceStoreClassProjection,
+    SearchContext,
 } from "../../src/extensions/UserSearchExtensions";
 
-import { DefaultExperimentalExtensions, ExperimentalExtensionsBase } from "../../src/extensions/ExperimentalExtensions";
+import { DefaultExperimentalExtensions } from "../../src/extensions/ExperimentalExtensions";
 
 describe("Defaults", () => {
     let module: RuntimeModule;
@@ -61,43 +64,50 @@ describe("Defaults", () => {
     });
 });
 
-// describe("Custom UserSearchExtensions", () => {
-//     let module: RuntimeModule;
+describe("Custom UserSearchExtensions", () => {
+    let module: RuntimeModule;
 
-//     beforeAll(() => {
-//         module = new (class extends RuntimeModule {
-//             public constructor() {
-//                 super(undefined as any);
+    beforeAll(() => {
+        module = new (class extends RuntimeModule {
+            public constructor() {
+                super(undefined as any);
 
-//                 this.extensions = {
-//                     cryptoSetup: new (class extends CryptoSetupExtensionsBase {
-//                         persistCredentials(credentials: ExtendedMatrixClientCreds): void {}
-//                         catchAccessSecretStorageError(e: Error): void {}
-//                         setupEncryptionNeeded(args: CryptoSetupArgs): boolean {
-//                             return true;
-//                         }
-//                         getSecretStorageKey(): Uint8Array | null {
-//                             return new Uint8Array([0xaa, 0xbb, 0xbb, 0xaa]);
-//                         }
-//                         createSecretStorageKey(): Uint8Array | null {
-//                             return new Uint8Array([0xaa, 0xbb, 0xbb, 0xaa, 0xaa, 0xbb, 0xbb, 0xaa]);
-//                         }
-//                         getDehydrationKeyCallback():
-//                             | ((
-//                                   keyInfo: SecretStorageKeyDescription,
-//                                   checkFunc: (key: Uint8Array) => void,
-//                               ) => Promise<Uint8Array>)
-//                             | null {
-//                             return (_, __) => Promise.resolve(new Uint8Array([0x0, 0x1, 0x2, 0x3]));
-//                         }
-//                         examineLoginResponse(response: any, credentials: ExtendedMatrixClientCreds): void {
-//                             credentials.secureBackupKey = "my secure backup key";
-//                         }
-//                         SHOW_ENCRYPTION_SETUP_UI: boolean = false;
-//                     })(),
-//                 };
-//             }
-//         })();
-//     });
+                this.extensions = {
+                    userSearch: new (class extends UserSearchExtensionsBase {
+                        public async getSearchContext(client: any, sdkContextClass: SdkContextClassProjection): Promise<SearchContext> {
+                            return {
+                                extraBodyArgs: {
+                                    tenant_id: "my_tenant_id"
+                                },
+                                extraRequestOptions: {
+                                    headers: {
+                                        "custom-header": "custom-header-value"
+                                    }
+                                },
+                            };                      
+                        }
+                    })(),
+                };
+            }
+        })();
+    });
 
-// });
+    it("returns custom value when calling getSearchContext", async () => {
+        let result = await module.extensions!.userSearch?.getSearchContext(null, {
+            roomViewStore: {
+                getRoomId(): Optional<string> {
+                    return "#room1:example.org";                                   
+                }
+            },
+            spaceStore: {
+                get activeSpaceRoom(): RoomProjection | null {
+                    return {
+                        roomId: "#space:example.org",
+                    };
+                }
+            }
+        });
+        expect(result?.extraBodyArgs!.tenant_id).toBe("my_tenant_id")
+        expect(result?.extraRequestOptions!.headers!["custom-header"]).toBe("custom-header-value")
+    });
+});
