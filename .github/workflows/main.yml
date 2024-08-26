@@ -1,9 +1,9 @@
 name: Main
 on:
     push:
-        branches: [main, verji-develop]
+        branches: [main, verji-main]
     pull_request:
-        branches: [main, verji-develop]
+        branches: [main, verji-main]
 jobs:
     # Global
     # ================================================
