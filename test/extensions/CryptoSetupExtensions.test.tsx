@@ -25,10 +25,7 @@ import {
     DefaultCryptoSetupExtensions,
 } from "../../src/extensions/CryptoSetupExtensions";
 
-import { 
-    DefaultExperimentalExtensions, 
-    ExperimentalExtensionsBase 
-} from "../../src/extensions/ExperimentalExtensions";
+import { DefaultExperimentalExtensions, ExperimentalExtensionsBase } from "../../src/extensions/ExperimentalExtensions";
 
 describe("Defaults", () => {
     let module: RuntimeModule;

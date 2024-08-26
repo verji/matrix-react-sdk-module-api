@@ -20,5 +20,5 @@ import { ProvideUserSearchExtensions } from "../extensions/UserSearchExtensions"
 export type AllExtensions = {
     cryptoSetup?: ProvideCryptoSetupExtensions;
     experimental?: ProvideExperimentalExtensions;
-    userSearch?: ProvideUserSearchExtensions
+    userSearch?: ProvideUserSearchExtensions;
 };

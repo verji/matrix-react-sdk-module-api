@@ -16,19 +16,16 @@ limitations under the License.
 
 import { RuntimeModule } from "../../src";
 
-import {    
+import {
     UserSearchExtensionsBase,
     ProvideUserSearchExtensions,
     DefaultUserSearchExtensions,
     SdkContextClassProjection,
-    RoomViewStoreProjection, 
-    SpaceStoreClassProjection
+    RoomViewStoreProjection,
+    SpaceStoreClassProjection,
 } from "../../src/extensions/UserSearchExtensions";
 
-import { 
-    DefaultExperimentalExtensions, 
-    ExperimentalExtensionsBase 
-} from "../../src/extensions/ExperimentalExtensions";
+import { DefaultExperimentalExtensions, ExperimentalExtensionsBase } from "../../src/extensions/ExperimentalExtensions";
 
 describe("Defaults", () => {
     let module: RuntimeModule;
@@ -47,16 +44,14 @@ describe("Defaults", () => {
     });
 
     it("returns default value for getSearchContext()", async () => {
-
         let sdkContext = new (class implements SdkContextClassProjection {
-
             get roomViewStore(): RoomViewStoreProjection {
                 throw new Error("Method not implemented.");
             }
             get spaceStore(): SpaceStoreClassProjection {
                 throw new Error("Method not implemented.");
             }
-        } )
+        })();
 
         let result = await module.extensions!.userSearch!.getSearchContext(null, sdkContext);
 

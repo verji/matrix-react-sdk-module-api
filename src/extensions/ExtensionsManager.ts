@@ -1,18 +1,7 @@
-
-import {
-    DefaultCryptoSetupExtensions,
-    ProvideCryptoSetupExtensions,
-} from "./CryptoSetupExtensions";
-import {
-    DefaultExperimentalExtensions,
-    ProvideExperimentalExtensions,
-} from "./ExperimentalExtensions";
-import {
-    DefaultUserSearchExtensions,
-    ProvideUserSearchExtensions,
-} from "./UserSearchExtensions";
+import { DefaultCryptoSetupExtensions, ProvideCryptoSetupExtensions } from "./CryptoSetupExtensions";
+import { DefaultExperimentalExtensions, ProvideExperimentalExtensions } from "./ExperimentalExtensions";
+import { DefaultUserSearchExtensions, ProvideUserSearchExtensions } from "./UserSearchExtensions";
 import { RuntimeModule } from "../RuntimeModule";
-
 
 /**
  * Handles and manages extensions provided by modules.
@@ -32,7 +21,6 @@ export class ExtensionsManager {
     /** `true` if `experimentalExtension` is the default implementation; `false` if it is implemented by a module. */
     private hasDefaultExperimentalExtension = true;
 
-
     /**
      * Create a new instance.
      */
@@ -40,7 +28,7 @@ export class ExtensionsManager {
         // Set up defaults
         this.cryptoSetupExtension = new DefaultCryptoSetupExtensions();
         this.experimentalExtension = new DefaultExperimentalExtensions();
-        this.userSearchExtension  = new DefaultUserSearchExtensions();
+        this.userSearchExtension = new DefaultUserSearchExtensions();
     }
 
     /**
@@ -61,7 +49,6 @@ export class ExtensionsManager {
         return this.userSearchExtension;
     }
 
-
     /**
      * Provides an experimental extension.
      *
@@ -81,8 +68,7 @@ export class ExtensionsManager {
      *
      * @throws if an extension is provided by more than one module.
      */
-    public addExtensions(module: RuntimeModule): void {        
-
+    public addExtensions(module: RuntimeModule): void {
         /* Add the cryptoSetup extension if any */
         if (module.extensions?.cryptoSetup) {
             if (this.hasDefaultCryptoSetupExtension) {

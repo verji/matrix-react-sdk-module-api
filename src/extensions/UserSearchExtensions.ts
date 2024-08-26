@@ -20,14 +20,13 @@ export interface RoomViewStoreProjection {
     getRoomId(): Optional<string>;
 }
 
-
 export interface RoomProjection {
     // The room ID of the room currently being viewed
     roomId: string;
 }
 
 export interface SpaceStoreClassProjection {
-//    get matrixClient(): MatrixClient | null;
+    //    get matrixClient(): MatrixClient | null;
     get activeSpaceRoom(): RoomProjection | null;
 }
 
@@ -77,41 +76,36 @@ interface RequestOptsProjection extends Pick<RequestInit, "priority"> {
     inhibitLogoutEmit?: boolean;
 }
 
-
 /*
-* A interface providing a slice/projection of the SdkContextClass in matrix-react-sdk
-*/
+ * A interface providing a slice/projection of the SdkContextClass in matrix-react-sdk
+ */
 export interface SdkContextClassProjection {
-
     get roomViewStore(): RoomViewStoreProjection;
-    get spaceStore(): SpaceStoreClassProjection; 
+    get spaceStore(): SpaceStoreClassProjection;
 }
-
 
 /**
  * Public api surface used to consume the extension in client code
  */
 export interface ProvideUserSearchExtensions {
-    getSearchContext(client:any,  sdkContext: SdkContextClassProjection): Promise<SearchContext>
+    getSearchContext(client: any, sdkContext: SdkContextClassProjection): Promise<SearchContext>;
 }
 
 /**
  * Abstract base class which concrete extension implementations will extend/derive from
  */
 export abstract class UserSearchExtensionsBase implements ProvideUserSearchExtensions {
-    public abstract getSearchContext(client:any, sdkContextClass: SdkContextClassProjection): Promise<SearchContext>    
+    public abstract getSearchContext(client: any, sdkContextClass: SdkContextClassProjection): Promise<SearchContext>;
 }
-
 
 /**
  * Search context used to augment call to /user-directory/search
- * 
+ *
  */
 export interface SearchContext {
-    extraBodyArgs: {[key:string]: string}|null; 
+    extraBodyArgs: { [key: string]: string } | null;
     extraRequestOptions: RequestOptsProjection;
 }
-
 
 /**
  *
@@ -120,12 +114,11 @@ export interface SearchContext {
  *
  * */
 export class DefaultUserSearchExtensions extends UserSearchExtensionsBase {
-
-    public async getSearchContext(client:any, sdkContext: SdkContextClassProjection): Promise<SearchContext> {
+    public async getSearchContext(client: any, sdkContext: SdkContextClassProjection): Promise<SearchContext> {
         console.log("Default resolveSearchContext()");
         return {
             extraBodyArgs: {},
-            extraRequestOptions: {}
-        }
+            extraRequestOptions: {},
+        };
     }
 }
