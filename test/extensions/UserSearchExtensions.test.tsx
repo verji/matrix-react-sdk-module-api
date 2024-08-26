@@ -74,17 +74,20 @@ describe("Custom UserSearchExtensions", () => {
 
                 this.extensions = {
                     userSearch: new (class extends UserSearchExtensionsBase {
-                        public async getSearchContext(client: any, sdkContextClass: SdkContextClassProjection): Promise<SearchContext> {
+                        public async getSearchContext(
+                            client: any,
+                            sdkContextClass: SdkContextClassProjection,
+                        ): Promise<SearchContext> {
                             return {
                                 extraBodyArgs: {
-                                    tenant_id: "my_tenant_id"
+                                    tenant_id: "my_tenant_id",
                                 },
                                 extraRequestOptions: {
                                     headers: {
-                                        "custom-header": "custom-header-value"
-                                    }
+                                        "custom-header": "custom-header-value",
+                                    },
                                 },
-                            };                      
+                            };
                         }
                     })(),
                 };
@@ -96,18 +99,18 @@ describe("Custom UserSearchExtensions", () => {
         let result = await module.extensions!.userSearch?.getSearchContext(null, {
             roomViewStore: {
                 getRoomId(): Optional<string> {
-                    return "#room1:example.org";                                   
-                }
+                    return "#room1:example.org";
+                },
             },
             spaceStore: {
                 get activeSpaceRoom(): RoomProjection | null {
                     return {
                         roomId: "#space:example.org",
                     };
-                }
-            }
+                },
+            },
         });
-        expect(result?.extraBodyArgs!.tenant_id).toBe("my_tenant_id")
-        expect(result?.extraRequestOptions!.headers!["custom-header"]).toBe("custom-header-value")
+        expect(result?.extraBodyArgs!.tenant_id).toBe("my_tenant_id");
+        expect(result?.extraRequestOptions!.headers!["custom-header"]).toBe("custom-header-value");
     });
 });

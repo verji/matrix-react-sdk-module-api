@@ -76,12 +76,11 @@ interface RequestOptsProjection extends Pick<RequestInit, "priority"> {
 }
 
 /*
-* A interface providing a slice/projection of the SdkContextClass in matrix-react-sdk
-*/
+ * A interface providing a slice/projection of the SdkContextClass in matrix-react-sdk
+ */
 export interface SdkContextClassProjection {
-
     get roomViewStore(): RoomViewStoreProjection;
-    get spaceStore(): SpaceStoreClassProjection; 
+    get spaceStore(): SpaceStoreClassProjection;
 }
 
 /**
@@ -100,10 +99,10 @@ export abstract class UserSearchExtensionsBase implements ProvideUserSearchExten
 
 /**
  * Search context used to augment call to /user-directory/search
- * 
+ *
  */
 export interface SearchContext {
-    extraBodyArgs: {[key: string]: string}|null; 
+    extraBodyArgs: { [key: string]: string } | null;
     extraRequestOptions: RequestOptsProjection;
 }
 
@@ -114,7 +113,6 @@ export interface SearchContext {
  *
  * */
 export class DefaultUserSearchExtensions extends UserSearchExtensionsBase {
-
     public async getSearchContext(client: any, sdkContext: SdkContextClassProjection): Promise<SearchContext> {
         console.log("Default resolveSearchContext()");
         return {
