@@ -99,7 +99,7 @@ export class ExtensionsManager {
         if (module.extensions?.userSearch) {
             if (this.hasDefaultUserSearchExtension) {
                 this.userSearchExtension = module.extensions?.userSearch;
-                this.hasDefaultCryptoSetupExtension = false;
+                this.hasDefaultUserSearchExtension = false;
             } else {
                 throw new Error(
                     `adding userSearch extension implementation from module ${module.moduleName} but an implementation was already provided.`,
