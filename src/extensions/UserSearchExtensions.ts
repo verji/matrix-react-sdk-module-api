@@ -26,7 +26,6 @@ export interface RoomProjection {
 }
 
 export interface SpaceStoreClassProjection {
-//    get matrixClient(): MatrixClient | null;
     get activeSpaceRoom(): RoomProjection | null;
 }
 
