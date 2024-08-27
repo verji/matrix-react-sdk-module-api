@@ -92,14 +92,14 @@ export interface MatrixClientProjection {
  * Public api surface used to consume the extension in client code
  */
 export interface ProvideUserSearchExtensions {
-    getSearchContext(client: MatrixClientProjection, sdkContext: SdkContextClassProjection): Promise<SearchContext>;
+    getSearchContext(client: MatrixClientProjection | null, sdkContext: SdkContextClassProjection): Promise<SearchContext>;
 }
 
 /**
  * Abstract base class which concrete extension implementations will extend/derive from
  */
 export abstract class UserSearchExtensionsBase implements ProvideUserSearchExtensions {
-    public abstract getSearchContext(client: any, sdkContextClass: SdkContextClassProjection): Promise<SearchContext>;
+    public abstract getSearchContext(client: MatrixClientProjection | null, sdkContextClass: SdkContextClassProjection): Promise<SearchContext>;
 }
 
 /**
@@ -118,7 +118,7 @@ export interface SearchContext {
  *
  * */
 export class DefaultUserSearchExtensions extends UserSearchExtensionsBase {
-    public async getSearchContext(client: any, sdkContext: SdkContextClassProjection): Promise<SearchContext> {
+    public async getSearchContext(client: MatrixClientProjection | null, sdkContext: SdkContextClassProjection): Promise<SearchContext> {
         console.log("Default resolveSearchContext()");
         return {
             extraBodyArgs: {},
