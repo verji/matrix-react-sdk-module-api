@@ -1,6 +1,6 @@
 {
     "name": "@matrix-org/react-sdk-module-api",
-    "version": "2.4.0-vrj1",
+    "version": "2.4.0",
     "description": "Module API surface for matrix-react-sdk",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -26,7 +26,8 @@
         "lint:js-fix": "eslint --fix src test && prettier --write .",
         "lint:types": "tsc --noEmit",
         "lint:workflows": "find .github/workflows -type f \\( -iname '*.yaml' -o -iname '*.yml' \\) | xargs -I {} sh -c 'echo \"Linting {}\"; action-validator \"{}\"'",
-        "prepublishOnly": "yarn build"
+        "prepublishOnly": "yarn build",
+        "analyse:unused_exports": "ts-prune | grep -v \"(used in module)\""
     },
     "resolutions": {
         "@types/react-dom": "17.0.25",
@@ -64,6 +65,7 @@
         "react-dom": "^17.0.2",
         "rimraf": "^3.0.2",
         "ts-jest": "^27.1.4",
+        "ts-prune": "^0.10.3",
         "typescript": "^4.6.3"
     },
     "dependencies": {

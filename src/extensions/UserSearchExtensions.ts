@@ -83,11 +83,16 @@ export interface SdkContextClassProjection {
     get spaceStore(): SpaceStoreClassProjection;
 }
 
+export interface MatrixClientProjection {
+    getStateEvent(finalRoomId: string, eventType: string, stateKey: string):  Promise<Record<string, any>>;
+}
+
+
 /**
  * Public api surface used to consume the extension in client code
  */
 export interface ProvideUserSearchExtensions {
-    getSearchContext(client: any, sdkContext: SdkContextClassProjection): Promise<SearchContext>;
+    getSearchContext(client: MatrixClientProjection, sdkContext: SdkContextClassProjection): Promise<SearchContext>;
 }
 
 /**

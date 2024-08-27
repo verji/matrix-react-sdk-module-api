@@ -26,9 +26,23 @@ import {
     RoomProjection,
     SpaceStoreClassProjection,
     SearchContext,
+    MatrixClientProjection
 } from "../../src/extensions/UserSearchExtensions";
 
 import { DefaultExperimentalExtensions } from "../../src/extensions/ExperimentalExtensions";
+
+function mockClient(): MatrixClientProjection {
+    const cli = {} as MatrixClientProjection;
+
+    cli.getStateEvent = jest.fn( () => {
+        return Promise.resolve(
+            {} as Record<string, any>);
+    });
+    return cli;
+}
+
+
+
 
 describe("Defaults", () => {
     let module: RuntimeModule;
@@ -56,7 +70,7 @@ describe("Defaults", () => {
             }
         })();
 
-        let result = await module.extensions!.userSearch!.getSearchContext(null, sdkContext);
+        let result = await module.extensions!.userSearch!.getSearchContext(mockClient(), sdkContext);
 
         expect(Object.keys(result).length).toBe(2);
         expect(Object.keys(result)).toContain("extraBodyArgs");
@@ -96,7 +110,7 @@ describe("Custom UserSearchExtensions", () => {
     });
 
     it("returns custom value when calling getSearchContext", async () => {
-        let result = await module.extensions!.userSearch?.getSearchContext(null, {
+        let result = await module.extensions!.userSearch?.getSearchContext(mockClient(), {
             roomViewStore: {
                 getRoomId(): Optional<string> {
                     return "#room1:example.org";
