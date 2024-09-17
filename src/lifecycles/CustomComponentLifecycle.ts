@@ -40,6 +40,7 @@ export enum CustomComponentLifecycle {
     MatrixChat = "matrix_chat",
     MemberTile = "member_tile",
     MessageContextMenu = "message_context_menu",
+    NewsAndOperatingMessages = "news_and_operating_messages",
     ReactionsRow = "reactions_row",
     ReactionsRowButtonTooltip = "reactions_row_button_tooltip",
     RolesRoomSettingsTab = "roles_room_settings_tab",
