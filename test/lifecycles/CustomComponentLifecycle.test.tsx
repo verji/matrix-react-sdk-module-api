@@ -98,7 +98,7 @@ describe("CustomComponentLifecycle", () => {
         const customComponentOpts: CustomComponentOpts = { CustomComponent: React.Fragment };
 
         // We emit a different lifecycle event than what our mock-module is listening to
-        module.emit(CustomComponentLifecycle.Experimental, customComponentOpts);
+        module.emit(CustomComponentLifecycle.OnboardingDialog, customComponentOpts);
 
         render(
             <customComponentOpts.CustomComponent>

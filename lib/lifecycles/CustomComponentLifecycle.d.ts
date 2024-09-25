@@ -26,7 +26,8 @@ export declare enum CustomComponentLifecycle {
     RoomView = "room_view",
     SessionManagerTab = "session_manage_tab",
     SpacePanel = "space_panel",
-    UserMenu = "user_menu"
+    UserMenu = "user_menu",
+    OnboardingDialog = "onboarding_dialog"
 }
 /**
  * Opts object that is populated with a Wrapper.

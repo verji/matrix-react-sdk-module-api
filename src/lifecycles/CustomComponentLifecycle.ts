@@ -49,6 +49,7 @@ export enum CustomComponentLifecycle {
     SessionManagerTab = "session_manage_tab",
     SpacePanel = "space_panel",
     UserMenu = "user_menu",
+    OnboardingDialog = "onboarding_dialog",
 }
 
 /**
