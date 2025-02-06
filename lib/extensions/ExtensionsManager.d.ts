@@ -1,6 +1,7 @@
 import { ProvideCryptoSetupExtensions } from "./CryptoSetupExtensions";
 import { ProvideExperimentalExtensions } from "./ExperimentalExtensions";
 import { ProvideUserSearchExtensions } from "./UserSearchExtensions";
+import { ProvideEventSearchExtensions } from "./EventSearchExtensions";
 import { RuntimeModule } from "../RuntimeModule";
 /**
  * Handles and manages extensions provided by modules.
@@ -9,10 +10,13 @@ export declare class ExtensionsManager {
     private cryptoSetupExtension;
     private experimentalExtension;
     private userSearchExtension;
+    private eventSearchExtension;
     /** `true` if `cryptoSetupExtension` is the default implementation; `false` if it is implemented by a module. */
     private hasDefaultCryptoSetupExtension;
     /** `true` if `userSearchExtension` is the default implementation; `false` if it is implemented by a module. */
     private hasDefaultUserSearchExtension;
+    /** `true` if `eventSearchExtension` is the default implementation; `false` if it is implemented by a module. */
+    private hasDefaultEventSearchExtension;
     /** `true` if `experimentalExtension` is the default implementation; `false` if it is implemented by a module. */
     private hasDefaultExperimentalExtension;
     /**
@@ -31,6 +35,12 @@ export declare class ExtensionsManager {
      * @returns The registered extension. If no module provides this extension, a default implementation is returned.
      */
     get userSearch(): ProvideUserSearchExtensions;
+    /**
+     * Provides a event search extension.
+     *
+     * @returns The registered extension. If no module provides this extension, a default implementation is returned.
+     */
+    get eventSearchModule(): ProvideEventSearchExtensions;
     /**
      * Provides an experimental extension.
      *

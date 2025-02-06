@@ -32,7 +32,7 @@ export declare enum CustomComponentLifecycle {
 /**
  * Opts object that is populated with a Wrapper.
  */
-export declare type CustomComponentOpts = {
+export type CustomComponentOpts = {
     /**
      * A Wrapper React Component to be rendered around a component to swap. i.e the component to override.
      */
@@ -41,4 +41,4 @@ export declare type CustomComponentOpts = {
 /**
  * Helper type that documents how to implement a UserMenu listener.
  */
-export declare type CustomComponentListener = (opts: CustomComponentOpts) => void;
+export type CustomComponentListener = (opts: CustomComponentOpts) => void;

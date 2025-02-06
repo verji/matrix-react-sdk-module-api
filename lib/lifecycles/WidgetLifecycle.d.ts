@@ -3,17 +3,17 @@ export declare enum WidgetLifecycle {
     PreLoadRequest = "preload_request",
     IdentityRequest = "identity_request"
 }
-export declare type CapabilitiesOpts = {
+export type CapabilitiesOpts = {
     approvedCapabilities: Set<string> | undefined;
 };
-export declare type ApprovalOpts = {
+export type ApprovalOpts = {
     approved: boolean | undefined;
 };
-export declare type CapabilitiesListener = (capabilitiesOpts: CapabilitiesOpts, widgetInfo: WidgetInfo, requestedCapabilities: Set<string>) => void;
+export type CapabilitiesListener = (capabilitiesOpts: CapabilitiesOpts, widgetInfo: WidgetInfo, requestedCapabilities: Set<string>) => void;
 /**
  * Listener for PreLoad and Identity requests
  */
-export declare type ApprovalListener = (approvalOpts: ApprovalOpts, widgetInfo: WidgetInfo) => void;
+export type ApprovalListener = (approvalOpts: ApprovalOpts, widgetInfo: WidgetInfo) => void;
 /**
  * Represents the widget
  */
