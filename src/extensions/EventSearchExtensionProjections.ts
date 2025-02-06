@@ -5,7 +5,7 @@ export interface SearchResultItem {
 
 export enum DirectionProjection {
     Backward = "b",
-    Forward = "f"
+    Forward = "f",
 }
 
 export enum RelationsHelperEventProjection {
@@ -15,7 +15,7 @@ export enum RelationsHelperEventProjection {
 type AnyListener = (...args: any) => any;
 export type ListenerMap<E extends string> = { [eventName in E]: AnyListener };
 
-export class TypedEventEmitter{}
+export class TypedEventEmitter {}
 
 export interface IContentProjection {
     body: any;
@@ -24,7 +24,7 @@ export interface IContentProjection {
 export enum EventTypeProjection {}
 
 export interface MatrixEventProjection {
-    getType (): EventTypeProjection | string;
+    getType(): EventTypeProjection | string;
     isRedacted(): boolean;
 
     getContent<T extends IContentProjection = IContentProjection>(): T;
@@ -40,8 +40,11 @@ export interface IPaginateOptsProjection {
 }
 
 export interface MatrixClientProjection {
-     paginateEventTimeline(eventTimeline: EventTimelineProjection, opts: IPaginateOptsProjection): Promise<boolean>;
-     processRoomEventsSearch<T extends ISearchResultsProjection>(searchResults: T, response: ISearchResponseProjection): T;
+    paginateEventTimeline(eventTimeline: EventTimelineProjection, opts: IPaginateOptsProjection): Promise<boolean>;
+    processRoomEventsSearch<T extends ISearchResultsProjection>(
+        searchResults: T,
+        response: ISearchResponseProjection,
+    ): T;
 }
 
 export interface RoomMemberProjection {
@@ -61,7 +64,7 @@ export interface EventTimelineProjection {
     getEvents(): MatrixEventProjection[];
 }
 
-export interface RoomProjection{
+export interface RoomProjection {
     getLiveTimeline(): EventTimelineProjection;
 }
 
@@ -71,7 +74,7 @@ export interface IResultRoomEvents {
     results: ISearchResultProjection[];
 }
 
-export interface IResultCategoriesProjection{
+export interface IResultCategoriesProjection {
     room_events: IResultRoomEvents;
 }
 
@@ -104,4 +107,3 @@ export interface EventContextProjection {
 
     getEvent(): MatrixEventProjection;
 }
-

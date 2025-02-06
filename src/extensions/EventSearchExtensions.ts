@@ -8,14 +8,24 @@ export interface MatrixClientProjection {
  * Public api surface used to consume the extension in client code
  */
 export interface ProvideEventSearchExtensions {
-    eventSearch(client: MatrixClientProjection, term: string, roomId?: string, abortSignal?: AbortSignal): Promise<ISearchResultsProjection>;
+    eventSearch(
+        client: MatrixClientProjection,
+        term: string,
+        roomId?: string,
+        abortSignal?: AbortSignal,
+    ): Promise<ISearchResultsProjection>;
 }
 
 /**
  * Abstract base class which concrete extension implementations will extend/derive from
  */
 export abstract class EventSearchExtensionsBase implements ProvideEventSearchExtensions {
-    public abstract eventSearch(client: MatrixClientProjection, term: string, roomId?: string, abortSignal?: AbortSignal): Promise<ISearchResultsProjection>;
+    public abstract eventSearch(
+        client: MatrixClientProjection,
+        term: string,
+        roomId?: string,
+        abortSignal?: AbortSignal,
+    ): Promise<ISearchResultsProjection>;
 }
 
 /**
@@ -25,7 +35,12 @@ export abstract class EventSearchExtensionsBase implements ProvideEventSearchExt
  *
  * */
 export class DefaultEventSearchExtensions extends EventSearchExtensionsBase {
-    public async eventSearch(client: MatrixClientProjection, term: string, roomId?: string, abortSignal?: AbortSignal): Promise<ISearchResultsProjection> {
+    public async eventSearch(
+        client: MatrixClientProjection,
+        term: string,
+        roomId?: string,
+        abortSignal?: AbortSignal,
+    ): Promise<ISearchResultsProjection> {
         console.log("Default resolveSearchContext()");
         const searchResults: ISearchResultsProjection = {
             results: [],

@@ -63,7 +63,7 @@ export class ExtensionsManager {
     public get eventSearchModule(): ProvideEventSearchExtensions {
         return this.eventSearchExtension;
     }
-    
+
     /**
      * Provides an experimental extension.
      *
@@ -119,7 +119,7 @@ export class ExtensionsManager {
                 );
             }
         }
-        
+
         /* Add the experimental extension if any */
         if (module.extensions?.experimental) {
             if (this.hasDefaultExperimentalExtension) {

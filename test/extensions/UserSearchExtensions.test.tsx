@@ -26,7 +26,7 @@ import {
     RoomProjection,
     SpaceStoreClassProjection,
     SearchContext,
-    MatrixClientProjection
+    MatrixClientProjection,
 } from "../../src/extensions/UserSearchExtensions";
 
 import { DefaultExperimentalExtensions } from "../../src/extensions/ExperimentalExtensions";
@@ -34,15 +34,11 @@ import { DefaultExperimentalExtensions } from "../../src/extensions/Experimental
 function mockClient(): MatrixClientProjection {
     const cli = {} as MatrixClientProjection;
 
-    cli.getStateEvent = jest.fn( () => {
-        return Promise.resolve(
-            {} as Record<string, any>);
+    cli.getStateEvent = jest.fn(() => {
+        return Promise.resolve({} as Record<string, any>);
     });
     return cli;
 }
-
-
-
 
 describe("Defaults", () => {
     let module: RuntimeModule;
