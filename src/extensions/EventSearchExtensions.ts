@@ -1,14 +1,14 @@
-import { EventContextProjection, ISearchResultsProjection, MatrixEventProjection } from "./EventSearchExtensionProjections"
+import { ISearchResultsProjection } from "./EventSearchExtensionProjections";
 
 export interface MatrixClientProjection {
-    getStateEvent(finalRoomId: string, eventType: string, stateKey: string):  Promise<Record<string, any>>;
+    getStateEvent(finalRoomId: string, eventType: string, stateKey: string): Promise<Record<string, any>>;
 }
 
 /**
  * Public api surface used to consume the extension in client code
  */
 export interface ProvideEventSearchExtensions {
-    eventSearch(client: MatrixClientProjection, term: string, roomId?: string, abortSignal?: AbortSignal): Promise<ISearchResultsProjection>
+    eventSearch(client: MatrixClientProjection, term: string, roomId?: string, abortSignal?: AbortSignal): Promise<ISearchResultsProjection>;
 }
 
 /**

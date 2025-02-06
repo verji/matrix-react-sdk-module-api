@@ -26,7 +26,6 @@ export class ExtensionsManager {
     /** `true` if `experimentalExtension` is the default implementation; `false` if it is implemented by a module. */
     private hasDefaultExperimentalExtension = true;
 
-
     /**
      * Create a new instance.
      */
