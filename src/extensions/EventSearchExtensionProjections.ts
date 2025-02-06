@@ -5,31 +5,23 @@ export interface SearchResultItem {
 
 export enum DirectionProjection {
     Backward = "b",
-    Forward = "f",
+    Forward = "f"
 }
 
 export enum RelationsHelperEventProjection {
     Add = "add",
 }
 
-interface EventMap {
-    [RelationsHelperEventProjection.Add]: (event: MatrixEventProjection) => void;
-}
-
 type AnyListener = (...args: any) => any;
 export type ListenerMap<E extends string> = { [eventName in E]: AnyListener };
 
-export class TypedEventEmitter<
-    Events extends string,
-    Arguments extends ListenerMap<Events>,
-    SuperclassArguments extends ListenerMap<any> = Arguments,
-> {};
+export class TypedEventEmitter{}
 
 export interface IContentProjection {
     body: any;
-};
+}
 
-export enum EventTypeProjection {};
+export enum EventTypeProjection {}
 
 export interface MatrixEventProjection {
     getType (): EventTypeProjection | string;
@@ -47,9 +39,8 @@ export interface IPaginateOptsProjection {
     limit?: number;
 }
 
-export interface  MatrixClientProjection {
+export interface MatrixClientProjection {
      paginateEventTimeline(eventTimeline: EventTimelineProjection, opts: IPaginateOptsProjection): Promise<boolean>;
-    //  processRoomEventsSearch(searchResults, searchResponse);
      processRoomEventsSearch<T extends ISearchResultsProjection>(searchResults: T, response: ISearchResponseProjection): T;
 }
 
@@ -58,7 +49,7 @@ export interface RoomMemberProjection {
     name: string;
 }
 
-export interface RoomStateProjection  {
+export interface RoomStateProjection {
     members: Record<string, RoomMemberProjection>;
     getMembers(): RoomMemberProjection[];
 }
@@ -71,18 +62,18 @@ export interface EventTimelineProjection {
 }
 
 export interface RoomProjection{
-    getLiveTimeline() :EventTimelineProjection;
+    getLiveTimeline(): EventTimelineProjection;
 }
 
 export interface IResultRoomEvents {
     count: number;
     highlights: string[];
     results: ISearchResultProjection[];
-};
+}
 
 export interface IResultCategoriesProjection{
     room_events: IResultRoomEvents;
-};
+}
 
 export interface ISearchResponseProjection {
     search_categories: IResultCategoriesProjection;
@@ -104,7 +95,7 @@ export interface ISearchResultsProjection {
 }
 
 export interface EventContextProjection {
-    timeline : MatrixEventProjection[];
+    timeline: MatrixEventProjection[];
 
     addEvents(events: MatrixEventProjection[], atStart: boolean): void;
     getTimeline(): MatrixEventProjection[];
