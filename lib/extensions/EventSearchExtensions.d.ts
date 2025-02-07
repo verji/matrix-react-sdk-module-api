@@ -16,8 +16,8 @@ export declare abstract class EventSearchExtensionsBase implements ProvideEventS
 }
 /**
  *
- * The default/empty usersearch-extension
- * Can (and will) be used if none of the modules has an implementaion of ProvideUserSearchExtensions
+ * The default/empty eventsearch-extension
+ * Can (and will) be used if none of the modules has an implementaion of ProvideEventSearchExtensions
  *
  * */
 export declare class DefaultEventSearchExtensions extends EventSearchExtensionsBase {
