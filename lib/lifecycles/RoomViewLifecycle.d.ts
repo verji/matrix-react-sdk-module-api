@@ -4,10 +4,10 @@ export declare enum RoomViewLifecycle {
     JoinFromRoomPreview = "try_join_not_logged_in",
     ViewRoom = "view_room"
 }
-export declare type RoomPreviewOpts = {
+export type RoomPreviewOpts = {
     canJoin: boolean;
 };
-export declare type ViewRoomOpts = {
+export type ViewRoomOpts = {
     buttons: Array<{
         icon: React.ReactNode | (() => React.ReactNode);
         id: string;
@@ -15,6 +15,6 @@ export declare type ViewRoomOpts = {
         onClick: () => void;
     }>;
 };
-export declare type RoomPreviewListener = (opts: RoomPreviewOpts, roomId: string) => void;
-export declare type JoinFromPreviewListener = (roomId: string) => void;
-export declare type ViewRoomListener = (opts: ViewRoomOpts, roomId: string) => void;
+export type RoomPreviewListener = (opts: RoomPreviewOpts, roomId: string) => void;
+export type JoinFromPreviewListener = (roomId: string) => void;
+export type ViewRoomListener = (opts: ViewRoomOpts, roomId: string) => void;

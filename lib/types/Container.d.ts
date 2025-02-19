@@ -1,1 +1,1 @@
-export declare type Container = "center" | "right" | "top";
+export type Container = "center" | "right" | "top";

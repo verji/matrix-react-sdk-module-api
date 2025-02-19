@@ -11,7 +11,7 @@ export declare enum WrapperLifecycle {
 /**
  * Opts object that is populated with a Wrapper.
  */
-export declare type WrapperOpts = {
+export type WrapperOpts = {
     /**
      * A Wrapper React Component to be rendered around the Matrix Chat.
      */
@@ -20,4 +20,4 @@ export declare type WrapperOpts = {
 /**
  * Helper type that documents how to implement a wrapper listener.
  */
-export declare type WrapperListener = (opts: WrapperOpts) => void;
+export type WrapperListener = (opts: WrapperOpts) => void;

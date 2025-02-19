@@ -1,6 +1,7 @@
 import { DefaultCryptoSetupExtensions, ProvideCryptoSetupExtensions } from "./CryptoSetupExtensions";
 import { DefaultExperimentalExtensions, ProvideExperimentalExtensions } from "./ExperimentalExtensions";
 import { DefaultUserSearchExtensions, ProvideUserSearchExtensions } from "./UserSearchExtensions";
+import { DefaultEventSearchExtensions, ProvideEventSearchExtensions } from "./EventSearchExtensions";
 import { RuntimeModule } from "../RuntimeModule";
 
 /**
@@ -11,12 +12,16 @@ export class ExtensionsManager {
     private cryptoSetupExtension: ProvideCryptoSetupExtensions;
     private experimentalExtension: ProvideExperimentalExtensions;
     private userSearchExtension: ProvideUserSearchExtensions;
+    private eventSearchExtension: ProvideEventSearchExtensions;
 
     /** `true` if `cryptoSetupExtension` is the default implementation; `false` if it is implemented by a module. */
     private hasDefaultCryptoSetupExtension = true;
 
     /** `true` if `userSearchExtension` is the default implementation; `false` if it is implemented by a module. */
     private hasDefaultUserSearchExtension = true;
+
+    /** `true` if `eventSearchExtension` is the default implementation; `false` if it is implemented by a module. */
+    private hasDefaultEventSearchExtension = true;
 
     /** `true` if `experimentalExtension` is the default implementation; `false` if it is implemented by a module. */
     private hasDefaultExperimentalExtension = true;
@@ -29,6 +34,7 @@ export class ExtensionsManager {
         this.cryptoSetupExtension = new DefaultCryptoSetupExtensions();
         this.experimentalExtension = new DefaultExperimentalExtensions();
         this.userSearchExtension = new DefaultUserSearchExtensions();
+        this.eventSearchExtension = new DefaultEventSearchExtensions();
     }
 
     /**
@@ -47,6 +53,15 @@ export class ExtensionsManager {
      */
     public get userSearch(): ProvideUserSearchExtensions {
         return this.userSearchExtension;
+    }
+
+    /**
+     * Provides a event search extension.
+     *
+     * @returns The registered extension. If no module provides this extension, a default implementation is returned.
+     */
+    public get eventSearchModule(): ProvideEventSearchExtensions {
+        return this.eventSearchExtension;
     }
 
     /**
@@ -89,6 +104,18 @@ export class ExtensionsManager {
             } else {
                 throw new Error(
                     `adding userSearch extension implementation from module ${module.moduleName} but an implementation was already provided.`,
+                );
+            }
+        }
+
+        /* Add the eventSearch extension if any */
+        if (module.extensions?.eventSearchModule) {
+            if (this.hasDefaultEventSearchExtension) {
+                this.eventSearchExtension = module.extensions?.eventSearchModule;
+                this.hasDefaultEventSearchExtension = false;
+            } else {
+                throw new Error(
+                    `adding eventSearch extension implementation from module ${module.moduleName} but an implementation was already provided.`,
                 );
             }
         }

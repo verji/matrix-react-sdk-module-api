@@ -4,7 +4,7 @@ import { Translation } from "matrix-web-i18n";
  * Mirrors custom translations support introduced by the react-sdk
  * here: https://github.com/matrix-org/matrix-react-sdk/pull/7886
  */
-export declare type TranslationStringsObject = {
+export type TranslationStringsObject = {
     [translationKey: string]: {
         [lang: string]: Translation;
     };
@@ -12,4 +12,4 @@ export declare type TranslationStringsObject = {
 /**
  * Represents a simple translation replacement (non-component replacement)
  */
-export declare type PlainSubstitution = number | string;
+export type PlainSubstitution = number | string;

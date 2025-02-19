@@ -21,7 +21,7 @@ export interface SecretStorageKeyDescriptionAesV1 extends SecretStorageKeyDescri
 /**
  * Copied from https://github.com/matrix-org/matrix-js-sdk/blob/2337d5a7af6265bbcabbd42c1594cd8b1829b00b/src/secret-storage.ts#L78
  */
-export declare type SecretStorageKeyDescription = SecretStorageKeyDescriptionAesV1;
+export type SecretStorageKeyDescription = SecretStorageKeyDescriptionAesV1;
 /**
  * Copied from https://github.com/matrix-org/matrix-js-sdk/blob/2337d5a7af6265bbcabbd42c1594cd8b1829b00b/src/secret-storage.ts#L85-L97
  */
