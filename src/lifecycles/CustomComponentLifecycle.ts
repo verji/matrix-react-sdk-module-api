@@ -50,6 +50,7 @@ export enum CustomComponentLifecycle {
     SpacePanel = "space_panel",
     UserMenu = "user_menu",
     InviteDialog = "invite_dialog",
+    RoomSublist = "room_sublist"
 }
 
 /**
